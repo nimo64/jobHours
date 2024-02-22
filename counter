@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+    html {
+        height: 100%;
+        background-color: #198754;
+    }
+
+    body{
+        position: relative;
+        top: 10%;
+    }
+
+    .labelStyle {
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .buttonSubmit{
+        background-color: #04AA6D; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        border-radius: 16px;
+        transition-duration: 0.4s;
+    }
+
+    .buttonSubmit:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    .formStyle{
+        width: 25%;
+        height: 60%;
+        text-align: center;
+        border-radius: 16px;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    }
+
+    hr{
+        margin-left: 10px;
+        margin-right: 10px;
+        /* margin-bottom: 20px; */
+    }
+
+    .startUp {
+        display: flex;
+        justify-content: center;
+    }
+
+    .resultStyle{
+        margin-top: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 24px;
+        padding-left: 10px;
+        padding-top: 10px;
+        width: 30%;
+        height: 20%;
+        display: inline-flex;
+        flex-direction: column;
+        /* text-align: center; */
+        border-radius: 16px;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    }
+</style>
+</head>
+<body>
+    <div class="startUp">
+        <div class="formStyle">
+            <h1 style="text-align: center;">Counter</h1>
+
+                <span class="labelStyle">Monday</span><br>
+                <input type="number" id="MondayHours" placeholder="Heures" value=""></input>
+                <input type="number" id="MondayMinutes" placeholder="Minutes" value=""></input><hr>
+
+                <span class="labelStyle">Tuesday</span><br>
+                <input type="number" id="TuesdayHours" placeholder="Heures" value=""></input>
+                <input type="number" id="TuesdayMinutes" placeholder="Minutes" value=""></input><hr>
+
+                <span class="labelStyle">Wednesday</span><br>
+                <input type="number" id="WednesdayHours" placeholder="Heures" value=""></input>
+                <input type="number" id="WednesdayMinutes" placeholder="Minutes" value=""></input><hr>
+
+                <span class="labelStyle">Thursday</span><br>
+                <input type="number" id="ThursdayHours" placeholder="Heures" value=""></input>
+                <input type="number" id="ThursdayMinutes" placeholder="Minutes" value=""></input><hr>
+
+                <span class="labelStyle">Friday</span><br>
+                <input type="number" id="FridayHours" placeholder="Heures" value=""></input>
+                <input type="number" id="FridayMinutes" placeholder="Minutes" value=""></input><hr>
+
+                <span class="labelStyle">Hours per week?</span><br>
+                <input type="number" id="WeekHours" placeholder="Heures" value="" required></input>
+                <input type="number" id="WeekMinutes" placeholder="Minutes" value="" required></input><hr>
+
+            <div style="text-align: center;">
+                <button type="submit" id="btnSubmit" class="buttonSubmit" onclick="check()">Check!</button>
+            </div>
+        </div>
+    </div>
+    <div id="resultStyle" class="startUp">
+        <div class="resultStyle">
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 5px;">Total :</strong>
+                <p id="resultHoursMinutes" style="margin-right: 20px;"></p>
+            </div><hr>
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 10px;">Weekly hours :</strong>
+                <p id="resultWeekly" style="margin-right: 20px;"></p>  
+            </div><hr>
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 10px;">Daily hours :</strong>
+                <p id="resultDaily" style="margin-right: 20px;"></p>  
+            </div><hr>
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 10px;">Delta week hours :</strong>
+                <p id="resultDelta" style="margin-right: 20px;"></p>  
+            </div><hr>
+        </div>
+        <div class="resultStyle">
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 5px;"><label>Monday : </label></strong>
+                <p id="resultMonday"></p>
+                <p id="resultDeltaMonday" style="margin-left: 10px;"></p>
+            </div><hr> 
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 5px;"><label>Tuesday : </label></strong>
+                <p id="resultTuesday"></p>
+                <p id="resultDeltaTuesday" style="margin-left: 10px;"></p>
+            </div><hr>
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 5px;"><label>Wednesday : </label></strong>
+                <p id="resultWednesday"></p>
+                <p id="resultDeltaWednesday" style="margin-left: 10px;"></p>
+            </div><hr>
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 5px;"><label>Thursday : </label></strong>
+                <p id="resultThursday"></p>
+                <p id="resultDeltaThursday" style="margin-left: 10px;"></p>
+            </div><hr>
+            <div style="display: inline-flex; align-items: center; margin-left: 10px;">
+                <strong style="margin-right: 5px;"><label>Friday : </label></strong>
+                <p id="resultFriday"></p>
+                <p id="resultDeltaFriday" style="margin-left: 10px;"></p>
+            </div><hr>
+        </div>
+    </div>
+
+    <script>
+
+        let MondayMinutesInput = document.getElementById("MondayMinutes");
+        let MondayHoursInput = document.getElementById("MondayHours");
+        let TuesdayHoursInput = document.getElementById("TuesdayHours");
+        let TuesdayMinutesInput = document.getElementById("TuesdayMinutes");
+        let WednesdayHoursInput = document.getElementById("WednesdayHours");
+        let WednesdayMinutesInput = document.getElementById("WednesdayMinutes");
+        let ThursdayHoursInput = document.getElementById("ThursdayHours");
+        let ThursdayMinutesInput = document.getElementById("ThursdayMinutes");
+        let FridayHoursInput = document.getElementById("FridayHours");
+        let FridayMinutesInput = document.getElementById("FridayMinutes");
+        let WeekHoursInput = document.getElementById("WeekHours");
+        let WeekMinutesInput = document.getElementById("WeekMinutes");
+        let btnSubmit = document.getElementById("btnSubmit");  
+        let daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+        document.getElementById("resultStyle").style.display = "none";
+
+        function check() {
+            // Déclaration des variables dans la fonction afin de réinitialiser les valeurs et calcul à 0 à chaque click
+            let resultHours = 0;
+            let resultMinutes = 0;
+            let resultHoursMinutes = 0;
+            let resultMonday = 0;
+            let resultTuesday = 0;
+            let resultWednesday = 0;
+            let resultThursday = 0;
+            let resultFriday = 0;
+            let totalHoursDay = 0;
+            let totalMinutesWeek = 0;
+            let totalMinutesDay = 0;
+            let resultDaily = 0;
+            let resultDelta = 0;
+            let resultDeltaMonday = 0;
+            let resultDeltaTuesday = 0;
+            let resultDeltaWednesday = 0;
+            let resultDeltaThursday = 0;
+            let resultDeltaFriday = 0;
+            let convertResultInMinutes = 0;
+            let deltaResultMondayInMinutes = 0;
+            let deltaResultMondayInHours = 0;
+            let deltaResultTuesdayInMinutes = 0;
+            let deltaResultTuesdayInHours = 0;
+            let deltaResultWednesdayInMinutes = 0;
+            let deltaResultWednesdayInHours = 0;
+            let deltaResultThursdayInMinutes = 0;
+            let deltaResultThursdayInHours = 0;
+            let deltaResultFridayInMinutes = 0;
+            let deltaResultFridayInHours = 0;
+            let deltaResultDailyContract = 0;
+            let deltaHoursInHours = 0;
+            let deltaHoursInMinutes = 0;
+            let deltaDayHoursInMinutes = 0;
+            let deltaDayInMinutes = 0;
+            let convertResultWeeklyInMinute = 0;
+   
+            // Je récupère la valeur de l'id heure et minute par jour
+            // Je parse le résultat pour avoir la valeur en nombre entier afin de pouvoir m'en servir pour faire des calculs
+            let MondayHours = parseInt(MondayHoursInput.value);
+            let MondayMinutes = parseInt(MondayMinutesInput.value);
+            let TuesdayHours = parseInt(TuesdayHoursInput.value);
+            let TuesdayMinutes = parseInt(TuesdayMinutesInput.value);
+            let WednesdayHours = parseInt(WednesdayHoursInput.value);
+            let WednesdayMinutes = parseInt(WednesdayMinutesInput.value);
+            let ThursdayHours = parseInt(ThursdayHoursInput.value);
+            let ThursdayMinutes = parseInt(ThursdayMinutesInput.value);
+            let FridayHours = parseInt(FridayHoursInput.value);
+            let FridayMinutes = parseInt(FridayMinutesInput.value);
+            let WeekHours = parseInt(WeekHoursInput.value);
+            let WeekMinutes = parseInt(WeekMinutesInput.value);
+
+            // Conditions qui vérifie si la valeur de la variable est null/vide/undefined alors on lui attribut 0, sinon elle garde sa valeur.
+            MondayHours = MondayHours || 0;
+            TuesdayHours = TuesdayHours || 0;
+            WednesdayHours = WednesdayHours || 0;
+            ThursdayHours = ThursdayHours || 0;
+            FridayHours = FridayHours || 0;
+            WeekHours = WeekHours || 0;
+
+            MondayMinutes = MondayMinutes || 0;
+            TuesdayMinutes = TuesdayMinutes || 0;
+            WednesdayMinutes = WednesdayMinutes || 0;
+            ThursdayMinutes = ThursdayMinutes || 0;
+            FridayMinutes = FridayMinutes || 0;
+            WeekMinutes = WeekMinutes || 0;
+
+            // Calcul addition du nombre d'heures et de minutes totals
+            resultHours = MondayHours + TuesdayHours + WednesdayHours + ThursdayHours + FridayHours;
+            resultMinutes = MondayMinutes + TuesdayMinutes + WednesdayMinutes + ThursdayMinutes + FridayMinutes;
+
+            // Conversion heures total en minutes total
+            convertResultInMinutes = (resultHours * 60) + resultMinutes;
+
+            // Si le nombre de minute est > à 59, alors on fait +1 dans le compteur d'heure et on continue cette boucle.
+            while (resultMinutes > 59) {
+                resultHours ++;
+                resultMinutes -= 60;
+            }
+
+            //  // Création de la chaîne de résultats
+             resultHoursMinutes = resultHours + " heures " + resultMinutes + " minutes";
+             resultWeekly = WeekHours + " heures " + WeekMinutes + " minutes";
+             resultMonday = MondayHours + " heures " + MondayMinutes + " minutes" + " ==>" ;
+             resultTuesday = TuesdayHours + " heures " + TuesdayMinutes + " minutes" + " ==>" ;
+             resultWednesday = WednesdayHours + " heures " + WednesdayMinutes + " minutes" + " ==>" ;
+             resultThursday = ThursdayHours + " heures " + ThursdayMinutes + " minutes" + " ==>" ;
+             resultFriday = FridayHours + " heures " + FridayMinutes + " minutes" + " ==>" ;
+
+            // // Affichage de la chaîne de résultats
+            document.getElementById("resultHoursMinutes").textContent  = resultHoursMinutes;
+            document.getElementById("resultWeekly").textContent  = resultWeekly;
+            document.getElementById("resultMonday").textContent  = resultMonday;
+            document.getElementById("resultTuesday").textContent  = resultTuesday;
+            document.getElementById("resultWednesday").textContent  = resultWednesday;
+            document.getElementById("resultThursday").textContent  = resultThursday;
+            document.getElementById("resultFriday").textContent  = resultFriday;
+
+            // Tant que je ne clic pas sur le bouton "check", je garde la div cachée.
+            if (resultHours === 0 && resultMinutes === 0) {
+                document.getElementById("resultStyle").style.display = "none";
+            } else {
+                document.getElementById("resultStyle").style.display = "flex";
+                document.getElementById("resultStyle").style.justifyContent = "center";
+            }
+
+             // Calcul du temps total en minutes pour la semaine
+            totalMinutesWeek = WeekHours * 60 + WeekMinutes;
+
+            // On divise par le nombre de jour en arrondissant au supérieur
+            totalMinutesDay = (Math.ceil(totalMinutesWeek / 5));
+
+            // Si le nombre de minute est > à 59, alors on fait +1 dans le compteur d'heure et on continue cette boucle.
+            while (totalMinutesDay > 59) {
+                totalHoursDay ++;
+                totalMinutesDay -= 60;
+            }
+
+            // Concaténation du résultat de l'heure journalière dans la variable "resutDaily" + affichage au ID associé
+            resultDaily = totalHoursDay + " heures " + totalMinutesDay + " minutes";
+            document.getElementById("resultDaily").textContent  = resultDaily;
+
+            // Delta temps en minutes du travail / jour
+            let resultDailyInMinutesContract = (totalHoursDay * 60) + totalMinutesDay;
+            deltaResultMondayInMinutes = resultDailyInMinutesContract - (MondayHours * 60) - MondayMinutes;
+            deltaResultTuesdayInMinutes = resultDailyInMinutesContract - (TuesdayHours * 60) - TuesdayMinutes;
+            deltaResultWednesdayInMinutes = resultDailyInMinutesContract - (WednesdayHours * 60) - WednesdayMinutes;
+            deltaResultThursdayInMinutes = resultDailyInMinutesContract - (ThursdayHours * 60) - ThursdayMinutes;
+            deltaResultFridayInMinutes = resultDailyInMinutesContract - (FridayHours * 60) - FridayMinutes;
+
+            // Calcul du temps restant pour calculer le delta d'heure / jour.
+            // Quand on travail plus, il faut inverser les résultats du calcul pour que le compteur compte les heures en plus
+            if (deltaResultMondayInMinutes > 0) {
+                while (deltaResultMondayInMinutes > 59) {
+                    deltaResultMondayInHours ++;
+                    deltaResultMondayInMinutes -= 60;
+                }
+            } else {
+                while (deltaResultMondayInMinutes < -59) {
+                    deltaResultMondayInHours ++;
+                    deltaResultMondayInMinutes += 60;
+                }
+            }
+
+            // Mardi
+            if (deltaResultTuesdayInMinutes > 0) {
+                while (deltaResultTuesdayInMinutes > 59) {
+                    deltaResultTuesdayInHours ++;
+                    deltaResultTuesdayInMinutes -= 60;
+                }
+            } else {
+                while (deltaResultTuesdayInMinutes < -59) {
+                    deltaResultTuesdayInHours ++;
+                    deltaResultTuesdayInMinutes += 60;
+                }
+            }
+
+            // Mercredi
+            if (deltaResultWednesdayInMinutes > 0) {
+                while (deltaResultWednesdayInMinutes > 59) {
+                    deltaResultWednesdayInHours ++;
+                    deltaResultWednesdayInMinutes -= 60;
+                }
+            } else {
+                while (deltaResultWednesdayInMinutes < -59) {
+                    deltaResultWednesdayInHours ++;
+                    deltaResultWednesdayInMinutes += 60;
+                }
+            }
+
+            // Jeudi 
+            if (deltaResultThursdayInMinutes > 0) {
+                while (deltaResultThursdayInMinutes > 59) {
+                    deltaResultThursdayInHours ++;
+                    deltaResultThursdayInMinutes -= 60;
+                }
+            } else {
+                while (deltaResultThursdayInMinutes < -59) {
+                    deltaResultThursdayInHours ++;
+                    deltaResultThursdayInMinutes += 60;
+                }
+            }
+
+            // Vendredi
+            if (deltaResultFridayInMinutes > 0) {
+                while (deltaResultFridayInMinutes > 59) {
+                    deltaResultFridayInHours ++;
+                    deltaResultFridayInMinutes -= 60;
+                }
+            } else {
+                while (deltaResultFridayInMinutes < -59) {
+                    deltaResultFridayInMinutes ++;
+                    deltaResultFridayInMinutes += 60;
+                }
+            }
+
+             // Concaténation du résultat de temps restant à travailler dans la semaine + affichage au ID associé
+             if (deltaResultMondayInMinutes > 0) {
+                resultDeltaMonday = deltaResultMondayInHours + " heures " + deltaResultMondayInMinutes + " minutes";
+                document.getElementById("resultDeltaMonday").textContent  = " - " + resultDeltaMonday;
+                document.getElementById("resultDeltaMonday").style.color = "red";
+            } else {
+                // Pour éviter d'avoir le "-" de la soustraction entre les heures à faire et celles faites, il faut prendre la valeur absolu du résultat
+                resultDeltaMonday = deltaResultMondayInHours + " heures " + Math.abs(deltaResultMondayInMinutes) + " minutes";
+                document.getElementById("resultDeltaMonday").textContent  = "+ " + resultDeltaMonday;
+                document.getElementById("resultDeltaMonday").style.color = "green";
+            }
+
+            // Mardi
+            if (deltaResultTuesdayInMinutes > 0) {
+                resultDeltaTuesday = deltaResultTuesdayInHours + " heures " + deltaResultTuesdayInMinutes + " minutes";
+                document.getElementById("resultDeltaTuesday").textContent  = " - " + resultDeltaTuesday;
+                document.getElementById("resultDeltaTuesday").style.color = "red";
+            } else {
+                // Pour éviter d'avoir le "-" de la soustraction entre les heures à faire et celles faites, il faut prendre la valeur absolu du résultat
+                resultDeltaTuesday = deltaResultTuesdayInHours + " heures " + Math.abs(deltaResultTuesdayInMinutes) + " minutes";
+                document.getElementById("resultDeltaTuesday").textContent  = "+ " + resultDeltaTuesday;
+                document.getElementById("resultDeltaTuesday").style.color = "green";
+            }
+
+            // Mercredi
+            if (deltaResultWednesdayInMinutes > 0) {
+                resultDeltaWednesday = deltaResultWednesdayInHours + " heures " + deltaResultWednesdayInMinutes + " minutes";
+                document.getElementById("resultDeltaWednesday").textContent  = " - " + resultDeltaWednesday;
+                document.getElementById("resultDeltaWednesday").style.color = "red";
+            } else {
+                // Pour éviter d'avoir le "-" de la soustraction entre les heures à faire et celles faites, il faut prendre la valeur absolu du résultat
+                resultDeltaWednesday = deltaResultWednesdayInHours + " heures " + Math.abs(deltaResultWednesdayInMinutes) + " minutes";
+                document.getElementById("resultDeltaWednesday").textContent  = "+ " + resultDeltaWednesday;
+                document.getElementById("resultDeltaWednesday").style.color = "green";
+            }
+
+            // Jeudi
+            if (deltaResultThursdayInMinutes > 0) {
+                resultDeltaThursday = deltaResultThursdayInHours + " heures " + deltaResultThursdayInMinutes + " minutes";
+                document.getElementById("resultDeltaThursday").textContent  = " - " + resultDeltaThursday;
+                document.getElementById("resultDeltaThursday").style.color = "red";
+            } else {
+                // Pour éviter d'avoir le "-" de la soustraction entre les heures à faire et celles faites, il faut prendre la valeur absolu du résultat
+                resultDeltaThursday = deltaResultThursdayInHours + " heures " + Math.abs(deltaResultThursdayInMinutes) + " minutes";
+                document.getElementById("resultDeltaThursday").textContent  = "+ " + resultDeltaThursday;
+                document.getElementById("resultDeltaThursday").style.color = "green";
+            }
+
+            // Vendredi
+            if (deltaResultFridayInMinutes > 0) {
+                resultDeltaFriday = deltaResultFridayInHours + " heures " + deltaResultFridayInMinutes + " minutes";
+                document.getElementById("resultDeltaFriday").textContent  = " - " + resultDeltaFriday;
+                document.getElementById("resultDeltaFriday").style.color = "red";
+            } else {
+                // Pour éviter d'avoir le "-" de la soustraction entre les heures à faire et celles faites, il faut prendre la valeur absolu du résultat
+                resultDeltaFriday = deltaResultFridayInHours + " heures " + Math.abs(deltaResultFridayInMinutes) + " minutes";
+                document.getElementById("resultDeltaFriday").textContent  = "+ " + resultDeltaFriday;
+                document.getElementById("resultDeltaFriday").style.color = "green";
+            }
+                        
+            // Conversion temps total ) travailler / semaine en minutes
+            convertResultWeeklyInMinute = WeekHours * 60 + WeekMinutes;
+
+            // Temps qui reste à faire pour arriver au nombre d'heure / semaine
+            deltaHoursInMinutes = convertResultWeeklyInMinute - convertResultInMinutes;
+
+            // Calcul du temps restant pour atteindre le nombre d'heure à faire dans la semaine.
+            // Quand on travail plus, il faut inverser les résultats du calcul pour que le compteur compte les heures en plus
+            if (deltaHoursInMinutes > 0) {
+                while (deltaHoursInMinutes > 59) {
+                    deltaHoursInHours ++;
+                    deltaHoursInMinutes -= 60;
+                }
+            } else {
+                while (deltaHoursInMinutes < -59) {
+                    deltaHoursInHours ++;
+                    deltaHoursInMinutes += 60;
+                }
+            }
+
+            // Concaténation du résultat de temps restant à travailler dans la semaine + affichage au ID associé
+            if (deltaHoursInMinutes > 0) {
+                resultDelta = deltaHoursInHours + " heures " + deltaHoursInMinutes + " minutes";
+                document.getElementById("resultDelta").textContent  = "- " + resultDelta;
+                document.getElementById("resultDelta").style.color = "red";
+            } else {
+                // Pour éviter d'avoir le "-" de la soustraction entre les heures à faire et celles faites, il faut prendre la valeur absolu du résultat
+                resultDelta = deltaHoursInHours + " heures " + Math.abs(deltaHoursInMinutes) + " minutes";
+                document.getElementById("resultDelta").textContent  = "+ " + resultDelta;
+                document.getElementById("resultDelta").style.color = "green";
+            }
+        }
+        
+        // Fonction mise à jour bouton actier/désativer en fonction si les minutes ont le bon format (<59)
+        function checkMinutes() {  
+            let allInputValid = true;
+
+            daysOfWeek.forEach(function(day) {
+                let minuteInput = document.getElementById(day + "Minutes");
+                if (parseInt(minuteInput.value) > 59) {
+                    allInputValid = false;
+                }
+            });
+            btnSubmit.disabled = !allInputValid;
+        }
+
+        ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].forEach(function(day) {
+            let minutesInput = document.getElementById(day + "Minutes");
+            minutesInput.addEventListener("input", checkMinutes);
+        })
+       
+        checkMinutes();
+        
+    </script>
+
+</body>
+</html>
+
